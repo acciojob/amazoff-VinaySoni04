@@ -3,39 +3,40 @@ package com.driver.test;
 import com.driver.*;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class TestCases2 {
-    OrderController orderController;
-    OrderService orderService;
+public class Testcases2 {
+    //    @Autowired
     OrderRepository orderRepository;
+    OrderService orderService;
+    OrderController orderController;
 
     @BeforeEach
     public void setup(){
-        orderController=new OrderController();
-        orderService=new OrderService();
         orderRepository=new OrderRepository();
+        orderService=new OrderService(orderRepository);
+        orderController =new OrderController(orderService);
     }
-
     @Test
-    public void addOrderSuccessfull(){
+    public void addOrderSuccesfull(){
         OrderRepository orderRepository=new OrderRepository();
         OrderService orderService=new OrderService(orderRepository);
         orderController =new OrderController(orderService);
+
         Order order=new Order("1","20:20");
         orderController.addOrder(order);
         assertEquals(1220,orderController.getOrderById("1").getBody().getDeliveryTime());
     }
-
     @Test
     public void addPartnerSuccesfull(){
         OrderRepository orderRepository=new OrderRepository();
         OrderService orderService=new OrderService(orderRepository);
         orderController =new OrderController(orderService);
-        DeliveryPartner deliveryPartner=new DeliveryPartner("10");
+
+        DeliveryPartner   deliveryPartner=new DeliveryPartner("10");
         orderController.addPartner("10");
         assertEquals(0,orderController.getPartnerById("10").getBody().getNumberOfOrders());
     }
@@ -54,4 +55,5 @@ public class TestCases2 {
 //        orderController.addOrderPartnerPair("2","10");
         assertEquals(1,orderController.getOrderCountByPartnerId ("10").getBody());
     }
+
 }
