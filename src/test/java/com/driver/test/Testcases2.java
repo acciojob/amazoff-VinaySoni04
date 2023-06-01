@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -28,7 +31,7 @@ public class Testcases2 {
 
         Order order=new Order("1","20:20");
         orderController.addOrder(order);
-        assertEquals(1220,orderController.getOrderById("1").getBody().getDeliveryTime());
+        assertEquals(1220, Objects.requireNonNull(orderController.getOrderById("1").getBody()).getDeliveryTime());
     }
     @Test
     public void addPartnerSuccesfull(){
@@ -38,7 +41,7 @@ public class Testcases2 {
 
         DeliveryPartner   deliveryPartner=new DeliveryPartner("10");
         orderController.addPartner("10");
-        assertEquals(0,orderController.getPartnerById("10").getBody().getNumberOfOrders());
+        assertEquals(0, Objects.requireNonNull(orderController.getPartnerById("10").getBody()).getNumberOfOrders());
     }
     @Test
     public void addPartnerOrderPairSuccesfull(){
