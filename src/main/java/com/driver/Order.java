@@ -1,6 +1,5 @@
 package com.driver;
 
-import ch.qos.logback.core.util.TimeUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +15,11 @@ public class Order {
     private int deliveryTime;
 
     public Order(String id, String deliveryTime) {
-
         // The deliveryTime has to converted from string to int and then stored in the attribute
         //deliveryTime  = HH*60 + MM
-        this.deliveryTime= TimeConversion.convertDeliverTime(deliveryTime);
+        this.deliveryTime=TimeUtil.convertDeliverTime(deliveryTime);
         this.id=id;
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public int getDeliveryTime() {return deliveryTime;}
 }
