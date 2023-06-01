@@ -22,10 +22,9 @@ public class TestCases2 {
 
     @Test
     public void addOrderSuccessfull(){
-        orderRepository=new OrderRepository();
-        orderService=new OrderService(orderRepository);
+        OrderRepository orderRepository=new OrderRepository();
+        OrderService orderService=new OrderService(orderRepository);
         orderController =new OrderController(orderService);
-
         Order order=new Order("1","20:20");
         orderController.addOrder(order);
         assertEquals(1220,orderController.getOrderById("1").getBody().getDeliveryTime());
@@ -33,25 +32,26 @@ public class TestCases2 {
 
     @Test
     public void addPartnerSuccesfull(){
-        orderRepository=new OrderRepository();
-        orderService=new OrderService(orderRepository);
+        OrderRepository orderRepository=new OrderRepository();
+        OrderService orderService=new OrderService(orderRepository);
         orderController =new OrderController(orderService);
-
         DeliveryPartner deliveryPartner=new DeliveryPartner("10");
         orderController.addPartner("10");
         assertEquals(0,orderController.getPartnerById("10").getBody().getNumberOfOrders());
     }
     @Test
     public void addPartnerOrderPairSuccesfull(){
-        orderRepository=new OrderRepository();
-        orderService=new OrderService(orderRepository);
+        OrderRepository orderRepository=new OrderRepository();
+        OrderService orderService=new OrderService(orderRepository);
         orderController =new OrderController(orderService);
 
         Order order=new Order("1","20:20");
         orderController.addOrder(order);
-        DeliveryPartner deliveryPartner=new DeliveryPartner("10");
+        DeliveryPartner   deliveryPartner=new DeliveryPartner("10");
         orderController.addPartner("10");
+
         orderController.addOrderPartnerPair("1","10");
+//        orderController.addOrderPartnerPair("2","10");
         assertEquals(1,orderController.getOrderCountByPartnerId ("10").getBody());
     }
 }
